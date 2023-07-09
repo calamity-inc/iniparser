@@ -7,8 +7,10 @@ do
 	local res = ini.parse("usave.ini")
 	assert(res.section.myInt == 42)
 	assert(res.section.myFloat == 1.23)
+	assert(res.section.myStr == "Hello, world!")
 	res.save("usave.ini")
 	res = ini.parse("usave.ini")
 	assert(res.section.myInt == 42)
 	assert(res.section.myFloat == 1.23)
+	assert(res.section.myStr == "Hello, world!")
 end

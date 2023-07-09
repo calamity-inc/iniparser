@@ -153,6 +153,8 @@ function ini.parse(path, cwd)
                                 else
                                     serialized_val = bVal
                                 end
+                            else
+                                serialized_val = value
                             end
 
                             cache.values[value] = serialized_val
