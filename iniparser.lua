@@ -74,18 +74,10 @@ end
 
 -- Parse an INI file from `path`.
 -- `cwd` is an optional parameter to specify the current working directory. Useful for relative importing.
---
--- This function tries to dicipher if `path` is already absolute by checking if it leads to an existing file.
--- If it does, then path isn't modified. However, if it does not, then cwd is concatenated before path then we check again.
--- If that check proves to be fruitful, then we consider cwd .. path to be the full path. That's effectively a relative import.
---
--- To note though, in some rare circumstances, a file may exist in both the absolute path you've passed, and in the CWD.
--- If this happens, then `path` is left as-is, and the absolute path is preferred over the relative one.
 function ini.parse(path, cwd)
     assert(type(cwd) == "string" or type(cwd) == "nil", "ini.parse 'cwd' must be a string.")
     assert(type(path) == "string", "ini.parse 'path' must be a string.")
 
-    -- Decipher `path` and decide whether it's absolute or relative.
     if cwd ~= nil then
         path = cwd .. path
     end
