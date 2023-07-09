@@ -76,6 +76,7 @@ end
 -- `options` is an optional table parameter, that may contain the following keys:
 -- - "cwd" to specify the current working directory. Useful for relative importing.
 --   For compatibility, the `options` parameter may be a string, in which case it's implied to be this "cwd" value.
+-- - "commaCompat" to enable compatibility for files that use ',' as a decimal separator to read floats correctly
 function ini.parse(path, options)
     assert(type(options) == "table" or type(options) == "string" or type(options) == "nil", "ini.parse 'options' must be a table.")
     assert(type(path) == "string", "ini.parse 'path' must be a string.")
@@ -151,7 +152,7 @@ function ini.parse(path, options)
                         if cache_val then
                             serialized_val = cache_val
                         else
-                            local nVal <const> = tonumber(value)
+                            local nVal <const> = tonumber(options.commaCompat ? (value:gsub(",", ".")) : value)
                             local bVal <const> = luaBoolValues[value]
 
                             if nVal then
