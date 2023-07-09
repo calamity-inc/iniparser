@@ -1,2 +1,2 @@
 # iniparser
-A Pluto module for parsing ini files.
+A Lua module for parsing ini files.
