@@ -73,13 +73,22 @@ function ini.match(path, key_name, desired_value, use_cache)
 end
 
 -- Parse an INI file from `path`.
--- `cwd` is an optional parameter to specify the current working directory. Useful for relative importing.
-function ini.parse(path, cwd)
-    assert(type(cwd) == "string" or type(cwd) == "nil", "ini.parse 'cwd' must be a string.")
+-- `options` is an optional table parameter, that may contain the following keys:
+-- - "cwd" to specify the current working directory. Useful for relative importing.
+--   For compatibility, the `options` parameter may be a string, in which case it's implied to be this "cwd" value.
+function ini.parse(path, options)
+    assert(type(options) == "table" or type(options) == "string" or type(options) == "nil", "ini.parse 'options' must be a table.")
     assert(type(path) == "string", "ini.parse 'path' must be a string.")
 
-    if cwd ~= nil then
-        path = cwd .. path
+    if options == nil then
+        options = {}
+    elseif type(options) == "string" then
+        options = {
+            cwd = options
+        }
+    end
+    if options.cwd ~= nil then
+        path = options.cwd .. path
     end
 
     local res <const>,
