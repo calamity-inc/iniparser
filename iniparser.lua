@@ -9,9 +9,35 @@ local type <const>,
       f_open <const>,
       str_sub <const>,
       str_len <const>,
-      tostring <const>,
-      tonumber <const>,
-      str_gmatch <const> = type, io.open, string.sub, string.len, utostring, utonumber, string.gmatch
+      str_gmatch <const> = type, io.open, string.sub, string.len, string.gmatch
+
+-------------------------
+-- Universal Functions --
+-------------------------
+
+local og_tostring = tostring
+local function tostring(...)
+    local old = os.setlocale(nil, "all")
+    os.setlocale("en_US.UTF-8", "numeric")
+    local ok, res = pcall(og_tostring, ...)
+    os.setlocale(old, "all")
+    if not ok then
+        error(res)
+    end
+    return res
+end
+
+local og_tonumber = tonumber
+local function tonumber(...)
+    local old = os.setlocale(nil, "all", "numeric")
+    os.setlocale("en_US.UTF-8", "numeric")
+    local ok, res = pcall(og_tonumber, ...)
+    os.setlocale(old, "all")
+    if not ok then
+        error(res)
+    end
+    return res
+end
 
 -----------------------
 --  Debug Utilities  --
