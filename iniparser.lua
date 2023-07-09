@@ -178,7 +178,13 @@ function ini.parse(path, options)
                         if cache_val then
                             serialized_val = cache_val
                         else
-                            local nVal <const> = tonumber(options.commaCompat ? (value:gsub(",", ".")) : value)
+                            local nVal
+                            if options.commaCompat then
+                                local tmp = value:gsub(",", ".")
+                                nVal = tonumber(tmp)
+                            else
+                                nVal = tonumber(value)
+                            end
                             local bVal <const> = luaBoolValues[value]
 
                             if nVal then
