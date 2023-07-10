@@ -1,2 +1,2 @@
 # iniparser
-A Lua module for parsing ini files.
+A Lua 5.3+ module for parsing ini files.
