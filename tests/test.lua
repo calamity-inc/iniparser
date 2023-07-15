@@ -1,4 +1,4 @@
-local ini <const> = dofile("../iniparser.lua")
+local ini = dofile("../iniparser.lua")
 
 -- Ensure that everything works fine in a locale that uses ',' as decimal separator
 do
