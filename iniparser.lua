@@ -1,5 +1,5 @@
 local ini = {
-    version = "0.2.11",
+    version = "0.2.12",
     __debug = false
 }
 
@@ -241,10 +241,10 @@ function ini.parse(path, options)
             end
         end
 
-        for key, value in pairs(res) do
-            if not skip[key] and type(value) ~= "table" and type(value) ~= "function" then
-                key = tostring(key)
-                value = tostring(value)
+        for _key, _value in pairs(res) do
+            if not skip[_key] and type(_value) ~= "table" and type(_value) ~= "function" then
+                local key = tostring(_key)
+                local value = tostring(_value)
 
                 if value:sub(1, 1) == " " then
                     value = value:gsub(2, #value)
@@ -257,9 +257,9 @@ function ini.parse(path, options)
         for _, tab in pairs(cats) do
             resl[#resl + 1] = "[" .. tab .. "]"
 
-            for key, value in pairs(res[tab]) do
-                key = tostring(key)
-                value = tostring(value)
+            for _key, _value in pairs(res[tab]) do
+                local key = tostring(_key)
+                local  value = tostring(_value)
 
                 if value:sub(1, 1) == " " then
                     value = value:gsub(2, #value)
